@@ -137,3 +137,41 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+############################################
+# PYTHON / ML (SCVOE specific)
+############################################
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# ML data (DO NOT PUSH DATASETS)
+ml-service/data/raw/
+ml-service/data/processed/
+
+# Trained ML models
+ml-service/models/
+*.pkl
+*.joblib
+*.h5
+
+# Experiment artifacts
+mlruns/
+wandb/
+
+############################################
+# OS / EDITOR
+############################################
+
+.DS_Store
+Thumbs.db
