@@ -1,0 +1,9 @@
+{
+  "Karnataka": {
+    "South": {
+      "Rainy": { "temp": 26, "humidity": 75 },
+      "Winter": { "temp": 22, "humidity": 55 },
+      "Summer": { "temp": 32, "humidity": 45 }
+    }
+  }
+}

@@ -34,27 +34,62 @@
 
 // export default App
 
-import { useState } from "react";
-import CropForm from "./components/CropForm";
-import RecommendationList from "./components/RecommendationList";
+// import { useState } from "react";
+// import CropForm from "./components/CropForm";
+// import RecommendationList from "./components/RecommendationList";
+
+// function App() {
+//   const [recommendations, setRecommendations] = useState([]);
+//   const [error, setError] = useState("");
+
+//   return (
+//     <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+//       <h1>🌱 SCVOE Crop Recommendation System</h1>
+
+//       <CropForm
+//         setRecommendations={setRecommendations}
+//         setError={setError}
+//       />
+
+//       {error && <p style={{ color: "red" }}>{error}</p>}
+
+//       <RecommendationList recommendations={recommendations} />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+import { useEffect, useState } from "react";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import RecommendationCards from "./components/RecommendationCards";
+import { getRecommendations } from "./api/recommendApi";
+import YieldChart from "./components/YieldChart";
+
 
 function App() {
-  const [recommendations, setRecommendations] = useState([]);
-  const [error, setError] = useState("");
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getRecommendations().then(res => {
+      console.log("Chart data:", res.recommendations);
+      setData(res.recommendations);
+    });
+  }, []);
+
+
+  useEffect(() => {
+    getRecommendations().then(res => {
+      setData(res.recommendations);
+    });
+  }, []);
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
-      <h1>🌱 SCVOE Crop Recommendation System</h1>
-
-      <CropForm
-        setRecommendations={setRecommendations}
-        setError={setError}
-      />
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <RecommendationList recommendations={recommendations} />
-    </div>
+    <DashboardLayout>
+      <h1>Crop Recommendations</h1>
+      <RecommendationCards data={data} />
+      <YieldChart data={data} />
+    </DashboardLayout>
   );
 }
 

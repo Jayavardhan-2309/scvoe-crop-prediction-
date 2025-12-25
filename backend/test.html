@@ -11,28 +11,12 @@
 
   <script>
     async function testAPI() {
-      const data = {
-        State: "Karnataka",
-        District: "Mysuru",
-        Region: "South",
-        Soil_Type: "Loamy",
-        Temperature: 28.0,
-        Humidity: 65.0,
-        Rainfall: 180.0,
-        pH: 6.5,
-        Nitrogen: 90,
-        Phosphorus: 40,
-        Potassium: 45,
-        Organic_Carbon: 0.8,
-        Electrical_Conductivity: 1.2,
-        Irrigation_Type: "Canal",
-        Fertilizer_Used: "Urea",
-        Pesticide_Used: "Yes",
-        Soil_Moisture: 22.0,
-        Altitude: 750,
-        Sunshine_Hours: 7.5,
-        Wind_Speed: 12.0,
-        Evapotranspiration: 4.5
+      const data =
+        {
+        "state": "Karnataka",
+        "region": "South",
+        "rainfallType": "Heavy",
+        "cyclone": false
       };
 
       const res = await fetch("http://localhost:5000/api/recommend", {

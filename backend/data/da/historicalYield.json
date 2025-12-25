@@ -1,0 +1,19 @@
+{
+  "Karnataka": {
+    "South": {
+      "Rainy": {
+        "Rice": 2400,
+        "Maize": 2100,
+        "Pulses": 1900
+      },
+      "Winter": {
+        "Wheat": 2300,
+        "Pulses": 2000
+      },
+      "Summer": {
+        "Maize": 1800,
+        "Cotton": 2200
+      }
+    }
+  }
+}
