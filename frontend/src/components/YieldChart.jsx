@@ -1,36 +1,31 @@
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip,
-  ResponsiveContainer, CartesianGrid
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip
 } from "recharts";
 
 function YieldChart({ data }) {
-  if (!data || data.length === 0) {
-    return <p>No data available</p>;
-  }
+  if (!data || data.length === 0) return null;
 
   const chartData = data.map(d => ({
     crop: d.crop,
-    predicted: Number(d.expected_yield),
-    historical: d.historical_avg_yield
-      ? Number(d.historical_avg_yield)
-      : 0
+    yield: d.expected_yield
   }));
 
   return (
-    <div style={{ height: 320 }}>
-      <h3>📊 Yield Comparison</h3>
-
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={chartData} barSize={40}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="crop" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="predicted" fill="#66bb6a" />
-          <Bar dataKey="historical" fill="#90a4ae" />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+    <BarChart
+      width={700}
+      height={300}
+      data={chartData}
+      margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
+    >
+      <XAxis dataKey="crop" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="yield" fill="#2e7d32" />
+    </BarChart>
   );
 }
 

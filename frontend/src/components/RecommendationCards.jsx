@@ -1,15 +1,23 @@
 function RecommendationCards({ data }) {
   return (
-    <div style={styles.grid}>
-      {data.map((r) => (
-        <div key={r.crop} style={styles.card}>
-          <h3>{r.crop}</h3>
-          <p><b>Expected Yield:</b> {r.expected_yield}</p>
-          <p><b>Confidence:</b> {r.confidence}</p>
+    <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+      {data.map((item) => (
+        <div
+          key={item.crop}
+          style={{
+            padding: "1rem",
+            background: "#f5f5f5",
+            borderRadius: "8px",
+            width: "250px"
+          }}
+        >
+          <h3>{item.crop}</h3>
+          <p><b>Expected Yield:</b> {item.expected_yield} kg/ha</p>
+          <p><b>Confidence:</b> {item.confidence}</p>
 
           <ul>
-            {r.why.map((w, i) => (
-              <li key={i}>{w}</li>
+            {item.why.map((reason, i) => (
+              <li key={i}>{reason}</li>
             ))}
           </ul>
         </div>
@@ -17,19 +25,5 @@ function RecommendationCards({ data }) {
     </div>
   );
 }
-
-const styles = {
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "1rem"
-  },
-  card: {
-    background: "white",
-    padding: "1rem",
-    borderRadius: "8px",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-  }
-};
 
 export default RecommendationCards;

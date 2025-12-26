@@ -1,9 +1,28 @@
+import { useNavigate } from "react-router-dom";
+
 function Navbar({ onToggle }) {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  }
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div style={styles.navbar}>
       <button onClick={onToggle} style={styles.toggle}>☰</button>
+
       <h2 style={{ margin: 0 }}>🌱 SCVOE</h2>
-      <div>User</div>
+
+      <div style={styles.right}>
+        {user && <span style={styles.user}>👤 {user.name}</span>}
+        <button onClick={handleLogout} style={styles.logout}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
@@ -15,7 +34,7 @@ const styles = {
     color: "white",
     display: "flex",
     alignItems: "center",
-    gap: "1rem",
+    justifyContent: "space-between",
     padding: "0 1.5rem",
     position: "fixed",
     top: 0,
@@ -28,6 +47,22 @@ const styles = {
     background: "transparent",
     color: "white",
     border: "none",
+    cursor: "pointer"
+  },
+  right: {
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem"
+  },
+  user: {
+    fontSize: "14px"
+  },
+  logout: {
+    background: "#c62828",
+    border: "none",
+    color: "white",
+    padding: "6px 10px",
+    borderRadius: "4px",
     cursor: "pointer"
   }
 };

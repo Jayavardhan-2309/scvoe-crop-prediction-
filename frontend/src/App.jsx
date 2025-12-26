@@ -1,95 +1,108 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+// import { useEffect, useState } from "react";
+// import DashboardLayout from "./components/layout/DashboardLayout";
+// import RecommendationCards from "./components/RecommendationCards";
+// import { getRecommendations } from "./api/recommendApi";
+// import YieldChart from "./components/YieldChart";
+
 
 // function App() {
-//   const [count, setCount] = useState(0)
+//   const [data, setData] = useState([]);
+
+//   useEffect(() => {
+//     getRecommendations().then(res => {
+//       console.log("Chart data:", res.recommendations);
+//       setData(res.recommendations);
+//     });
+//   }, []);
+
+
+//   useEffect(() => {
+//     getRecommendations().then(res => {
+//       setData(res.recommendations);
+//     });
+//   }, []);
 
 //   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
-
-// import { useState } from "react";
-// import CropForm from "./components/CropForm";
-// import RecommendationList from "./components/RecommendationList";
-
-// function App() {
-//   const [recommendations, setRecommendations] = useState([]);
-//   const [error, setError] = useState("");
-
-//   return (
-//     <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
-//       <h1>🌱 SCVOE Crop Recommendation System</h1>
-
-//       <CropForm
-//         setRecommendations={setRecommendations}
-//         setError={setError}
-//       />
-
-//       {error && <p style={{ color: "red" }}>{error}</p>}
-
-//       <RecommendationList recommendations={recommendations} />
-//     </div>
+//     <DashboardLayout>
+//       <h1>Crop Recommendations</h1>
+//       <RecommendationCards data={data} />
+//       <YieldChart data={data} />
+//     </DashboardLayout>
 //   );
 // }
 
 // export default App;
 
-import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import DashboardLayout from "./components/layout/DashboardLayout";
-import RecommendationCards from "./components/RecommendationCards";
-import { getRecommendations } from "./api/recommendApi";
-import YieldChart from "./components/YieldChart";
+import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Crops from "./pages/Crops";
+import Insights from "./pages/Insights";
+
+
 
 
 function App() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    getRecommendations().then(res => {
-      console.log("Chart data:", res.recommendations);
-      setData(res.recommendations);
-    });
-  }, []);
-
-
-  useEffect(() => {
-    getRecommendations().then(res => {
-      setData(res.recommendations);
-    });
-  }, []);
-
   return (
-    <DashboardLayout>
-      <h1>Crop Recommendations</h1>
-      <RecommendationCards data={data} />
-      <YieldChart data={data} />
-    </DashboardLayout>
+    <BrowserRouter>
+      <Routes>
+
+        {/* Public routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Protected app routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Settings />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/crops"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Crops />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/insights"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Insights />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
